@@ -1,0 +1,85 @@
+package com.krishna.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import com.krishna.beans.Booking;
+import com.krishna.util.SessionFactoryManagerImpl;
+
+import jakarta.persistence.TypedQuery;
+
+public class BookingDaoImpl implements BookingDao{
+
+	SessionFactory factory;
+	
+	
+	public BookingDaoImpl() {
+		factory=new SessionFactoryManagerImpl().getFactory();
+		
+	}
+	
+	@Override
+	public Integer AddFlight(Booking booking) {
+	
+		Session session=factory.openSession();
+		Transaction transaction=session.beginTransaction();
+		Integer srno=(Integer) session.save(booking);
+	
+		transaction.commit();
+		session.close();
+		System.out.println(srno);
+		return srno;
+	
+	}
+		
+	@Override
+	public List<Booking> findAllFlight() {
+	
+		Session session=factory.openSession();
+		
+		String query="from Booking";
+		TypedQuery<Booking>tq=session.createQuery(query);
+		List<Booking>output=tq.getResultList();
+	
+		session.close();
+		return output;
+	
+	}
+
+	@Override
+	public Booking searchUserById(int srno) {
+		Booking book=null;
+		Session session=factory.openSession();
+		String hql="from Booking b where b.srno ="+srno;
+		TypedQuery<Booking> query=session.createQuery(hql);
+		book=query.getSingleResult();
+		return book;
+	}
+
+	@Override
+	public List<Booking> userSpecificSearch(Booking book1) {
+//		Session session=factory.openSession();
+//		String hql="from Booking b where b.source="+book1.getSource() +","+ "and b.destination=" + book1.getDestination()+",";
+//		
+//		TypedQuery<Booking> query=session.createQuery(hql);
+//		List<Booking>result2 =query.getResultList();
+//		session.close();
+//		return result2;
+		
+		Session session=factory.openSession();
+		Transaction transaction=session.beginTransaction();
+		String sql="select* from list_of_flights where source="+book1.getSource()+" and destination="+book1.getDestination();
+		TypedQuery<Booking> query=session.createNativeQuery(sql, Booking.class, "list_of_flights");
+		List<Booking>result2 =query.getResultList();
+		transaction.commit();
+		session.close();
+		return result2;
+	}
+
+
+
+
+	
+}

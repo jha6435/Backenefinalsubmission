@@ -1,0 +1,51 @@
+package com.krishna.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class AdminController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userName=request.getParameter("uname");
+		String password=request.getParameter("pword");
+		
+		System.out.println(userName);
+		System.out.println(password);
+		String message=null;
+		if("Rupesh121".equals(password)) {
+			System.out.println("welcome "+userName);
+			message="welcome "+userName;
+			request.setAttribute("mess", message);
+			RequestDispatcher dispatcher=request.getRequestDispatcher("adminauth.jsp");
+			dispatcher.forward(request, response);	
+		}else {
+			System.out.println("please enter correct password ");
+			message="please enter correct password ";
+			request.setAttribute("mess", message);
+			
+			
+		}
+		
+		request.setAttribute("passforchange", password);
+		RequestDispatcher dis=request.getRequestDispatcher("ChangePasswordController");
+		dis.forward(request, response);
+		
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		doGet(request, response);
+	}
+
+}

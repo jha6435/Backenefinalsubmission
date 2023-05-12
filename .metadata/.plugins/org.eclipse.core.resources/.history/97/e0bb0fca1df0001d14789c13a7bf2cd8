@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+body{background: pink;
+}
+.abc{
+font-size:x-large;
+color:blue;
+}
+a{font-size:large;
+}
+</style>
+</head>
+<body>
+<div class="abc">
+<%
+ String output=(String)request.getAttribute("output");
+out.println(output);
+
+%></div>
+
+<br>
+<br>
+<a href="bookticket.jsp">book ticket</a>
+</body>
+</html>

@@ -1,0 +1,57 @@
+package com.krishna.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.krishna.beans.Booking;
+import com.krishna.service.BookingServiceImpl;
+
+
+public class SearchFlightController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String source=request.getParameter("soce");
+		String destination=request.getParameter("destig");
+		String doj=request.getParameter("date");
+		String noOfPassen=request.getParameter("num");
+		
+		System.out.println(source);
+		System.out.println(destination);
+		System.out.println(doj);
+		
+		System.out.println(noOfPassen);
+		
+		Booking book1=new Booking(source, destination);
+		System.out.println(book1.getDestination());
+		System.out.println(book1.getSource());
+		List<Booking>result2= new BookingServiceImpl().userSpecificSearch(book1);
+		System.out.println(result2);
+		
+		
+		if(result2==null) {
+			RequestDispatcher dispatcher=request.getRequestDispatcher("noflight.jsp");
+			
+		}
+		else {
+			
+		}
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		doGet(request, response);
+	}
+
+}

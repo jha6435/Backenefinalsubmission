@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="">
+Name:<input type="text" name="name"><br>
+Address:<input type="text" name="addr"><br>
+Mobile No:<input type="text" name="mob"><br>
+Source:<input type="text" name="soce"><br>
+Destination:<input type="text" name="destig"><br>
+Date Of Journey:<input type="date" name="date"><br>
+Number of passengers:<input type="number" name="num"><br>
+select fair:<input type="text" name="soce"><br>
+<br>
+<br>
+<input type="submit" name="proceed for payment">
+</form>
+</body>
+</html>
